@@ -1,0 +1,11 @@
+C:\Source\racewrangler\bin\Debug\netcoreapp3.0\racewrangler.exe
+C:\Source\racewrangler\bin\Debug\netcoreapp3.0\racewrangler.deps.json
+C:\Source\racewrangler\bin\Debug\netcoreapp3.0\racewrangler.runtimeconfig.json
+C:\Source\racewrangler\bin\Debug\netcoreapp3.0\racewrangler.runtimeconfig.dev.json
+C:\Source\racewrangler\bin\Debug\netcoreapp3.0\racewrangler.dll
+C:\Source\racewrangler\bin\Debug\netcoreapp3.0\racewrangler.pdb
+C:\Source\racewrangler\obj\Debug\netcoreapp3.0\racewrangler.csprojAssemblyReference.cache
+C:\Source\racewrangler\obj\Debug\netcoreapp3.0\racewrangler.AssemblyInfoInputs.cache
+C:\Source\racewrangler\obj\Debug\netcoreapp3.0\racewrangler.AssemblyInfo.cs
+C:\Source\racewrangler\obj\Debug\netcoreapp3.0\racewrangler.dll
+C:\Source\racewrangler\obj\Debug\netcoreapp3.0\racewrangler.pdb

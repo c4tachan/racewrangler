@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\c4tac\\source\\repos\\racewrangler\\racewrangler.csproj": {}
+    "C:\\Source\\racewrangler\\server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\c4tac\\source\\repos\\racewrangler\\racewrangler.csproj": {
+    "C:\\Source\\racewrangler\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\c4tac\\source\\repos\\racewrangler\\racewrangler.csproj",
-        "projectName": "racewrangler",
-        "projectPath": "C:\\Users\\c4tac\\source\\repos\\racewrangler\\racewrangler.csproj",
+        "projectUniqueName": "C:\\Source\\racewrangler\\server.csproj",
+        "projectName": "server",
+        "projectPath": "C:\\Source\\racewrangler\\server.csproj",
         "packagesPath": "C:\\Users\\c4tac\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\c4tac\\source\\repos\\racewrangler\\obj\\",
+        "outputPath": "C:\\Source\\racewrangler\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\c4tac\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -37,16 +37,6 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
-          "dependencies": {
-            "Microsoft.EntityFrameworkCore.Sqlite": {
-              "target": "Package",
-              "version": "[3.1.3, )"
-            },
-            "Npgsql.EntityFrameworkCore.PostgreSQL": {
-              "target": "Package",
-              "version": "[3.1.3, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
