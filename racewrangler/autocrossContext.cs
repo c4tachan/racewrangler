@@ -33,7 +33,7 @@ namespace racewrangler
             if (!optionsBuilder.IsConfigured)
             {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=racewranglerdb.cq8mrpiprozz.us-east-2.rds.amazonaws.com; Database=autocross;user id=postgres; password=*****");
+                optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("raceWranglerConnectionString"));
             }
         }
 
