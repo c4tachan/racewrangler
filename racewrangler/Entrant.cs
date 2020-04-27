@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace racewrangler
 {
@@ -13,6 +14,7 @@ namespace racewrangler
         public string LastName { get; set; }
         public double? SeasonPoints { get; set; }
 
+        [JsonIgnore]
         public virtual Competition Comp { get; set; }
     }
 }

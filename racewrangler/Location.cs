@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace racewrangler
 {
@@ -16,6 +18,7 @@ namespace racewrangler
         public string State { get; set; }
         public string Zip { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Competition> Competition { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace racewrangler
 {
@@ -16,7 +17,10 @@ namespace racewrangler
         public string Name { get; set; }
         public TimeSpan? PenaltyCost { get; set; }
 
+        [JsonIgnore]
         public virtual Location Location { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Entrant> Entrant { get; set; }
     }
 }
