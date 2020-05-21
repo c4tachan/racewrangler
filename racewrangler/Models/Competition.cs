@@ -17,5 +17,6 @@ namespace racewrangler.Models
         public Site EventSite { get; set; }
         public ICollection<RaceEntry> Entrants { get; set; }
         public Organizer Org { get; set; }
+        public string ResultsSource { get; set; }
     }
 }

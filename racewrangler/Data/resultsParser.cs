@@ -24,14 +24,23 @@ namespace racewrangler.Data
 
                 foreach (var f in d.EnumerateFiles())
                 {
-                    var comp = new Models.Competition()
+                    var fileLoaded = (from c in context.Competitions
+                                      where c.ResultsSource == f.FullName
+                                      select c).Any();
+                    if (!fileLoaded)
                     {
-                        Entrants = new List<RaceEntry>()
-                    };
 
-                    ParseCompetition(context, comp, f);
+                        var comp = new Models.Competition()
+                        {
+                            Entrants = new List<RaceEntry>()
+                        };
 
-                    season.Competitions.Add(comp);
+                        ParseCompetition(context, comp, f);
+
+                        comp.ResultsSource = f.FullName;
+
+                        season.Competitions.Add(comp);
+                    }
                 }
 
                 context.Seasons.Add(season);
