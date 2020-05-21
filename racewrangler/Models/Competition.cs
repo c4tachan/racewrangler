@@ -15,8 +15,7 @@ namespace racewrangler.Models
         public Season Season { get; set; }
         public int EventNum { get; set; }
         public Site EventSite { get; set; }
-        public ICollection<Driver> Entrants { get; set; }
-        public ICollection<Run> Runs { get; set; }
+        public ICollection<RaceEntry> Entrants { get; set; }
         public Organizer Org { get; set; }
     }
 }

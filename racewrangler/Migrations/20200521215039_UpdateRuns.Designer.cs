@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using racewrangler.Data;
 
 namespace racewrangler.Migrations
 {
     [DbContext(typeof(racewranglerContext))]
-    partial class racewranglerContextModelSnapshot : ModelSnapshot
+    [Migration("20200521215039_UpdateRuns")]
+    partial class UpdateRuns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -208,9 +210,6 @@ namespace racewrangler.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("DNF")
-                        .HasColumnType("bit");
 
                     b.Property<float>("LapTime")
                         .HasColumnType("real");

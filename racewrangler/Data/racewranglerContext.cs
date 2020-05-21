@@ -28,6 +28,9 @@ namespace racewrangler.Data
 
         public DbSet<racewrangler.Models.Classification> Classes { get; set; }
 
+        public DbSet<racewrangler.Models.RaceEntry> RaceEntries { get; set; }
+        public DbSet<racewrangler.Models.Run> Runs { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             if (null == modelBuilder)
@@ -42,6 +45,8 @@ namespace racewrangler.Data
             modelBuilder.Entity<Competition>().ToTable("Competitions");
             modelBuilder.Entity<Organizer>().ToTable("Organizers");
             modelBuilder.Entity<Classification>().ToTable("Classes");
+            modelBuilder.Entity<RaceEntry>().ToTable("RaceEntries");
+            modelBuilder.Entity<Run>().ToTable("Runs");
         }
 
     }

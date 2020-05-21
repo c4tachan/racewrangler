@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using racewrangler.Data;
 
 namespace racewrangler.Migrations
 {
     [DbContext(typeof(racewranglerContext))]
-    partial class racewranglerContextModelSnapshot : ModelSnapshot
+    [Migration("20200521203409_UpdateRaceEntries")]
+    partial class UpdateRaceEntries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,8 +211,8 @@ namespace racewrangler.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("DNF")
-                        .HasColumnType("bit");
+                    b.Property<int?>("CompID")
+                        .HasColumnType("int");
 
                     b.Property<float>("LapTime")
                         .HasColumnType("real");
@@ -226,9 +228,11 @@ namespace racewrangler.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("CompID");
+
                     b.HasIndex("RaceEntryID");
 
-                    b.ToTable("Runs");
+                    b.ToTable("Run");
                 });
 
             modelBuilder.Entity("racewrangler.Models.Season", b =>
@@ -320,6 +324,10 @@ namespace racewrangler.Migrations
 
             modelBuilder.Entity("racewrangler.Models.Run", b =>
                 {
+                    b.HasOne("racewrangler.Models.Competition", "Comp")
+                        .WithMany()
+                        .HasForeignKey("CompID");
+
                     b.HasOne("racewrangler.Models.RaceEntry", "RaceEntry")
                         .WithMany("Runs")
                         .HasForeignKey("RaceEntryID");
