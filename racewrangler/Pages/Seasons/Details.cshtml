@@ -1,0 +1,38 @@
+﻿@page "{id:int}"
+@model racewrangler.Pages.Seasons.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+    <h1>@Html.DisplayFor(model => model.Season.Year) Season</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Season.Year">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Season.Competitions.First().EventNum)</th>
+                <th>@Html.DisplayNameFor(model => model.Season.Competitions.First().Date)</th>
+                <th>@Html.DisplayNameFor(model => model.Season.Competitions.First().Name)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Season.Competitions)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.EventNum)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-page="../Competitions/Create" asp-route-season="@Model.Season.Year">Add Event</a>
+</div>

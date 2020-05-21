@@ -8,9 +8,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "racewrangler", "racewrangler\racewrangler.csproj", "{26DDFC82-9A7A-4D49-9505-AE21F0192552}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "results", "results", "{B09C7DE4-BDE9-478A-9957-3E0D36F1FCAE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2020", "2020", "{E07B234A-B928-4D41-B91F-7C64F6AA7BB2}"
+	ProjectSection(SolutionItems) = preProject
+		results\2020\ax1-2020-zmax-dragway-feb-22_fin.htm = results\2020\ax1-2020-zmax-dragway-feb-22_fin.htm
+		results\2020\ax2-2020-michelin-proving-grounds-march-7_fin.htm = results\2020\ax2-2020-michelin-proving-grounds-march-7_fin.htm
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26DDFC82-9A7A-4D49-9505-AE21F0192552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26DDFC82-9A7A-4D49-9505-AE21F0192552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26DDFC82-9A7A-4D49-9505-AE21F0192552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26DDFC82-9A7A-4D49-9505-AE21F0192552}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B09C7DE4-BDE9-478A-9957-3E0D36F1FCAE} = {DA855DF7-30FF-4939-82BB-A8A63B4A4842}
+		{E07B234A-B928-4D41-B91F-7C64F6AA7BB2} = {B09C7DE4-BDE9-478A-9957-3E0D36F1FCAE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {98F99F67-6A1C-448C-8AFC-E9A837E4A33F}
