@@ -152,7 +152,7 @@ namespace racewrangler.Data
                 // Check to see if we're crossing into a new class's results
                 if (headerNodes != null)
                 {
-                    ParseClassName(context, cls, headerNodes.First());
+                    ParseClassName(context, out cls, headerNodes.First());
                     colorCol = int.Parse(headerNodes.First().Attributes["colspan"].Value);
 
                     int col = 0;
@@ -327,10 +327,11 @@ namespace racewrangler.Data
             return run;
         }
 
-        private static void ParseClassName(racewranglerContext context, Classification cls, HtmlNode htmlNode)
+        private static void ParseClassName(racewranglerContext context, out Classification cls, HtmlNode htmlNode)
         {
             string abbrv = "";
-            //int entryCount = 0;
+            
+            cls = new Classification();
 
             var parts = htmlNode.InnerText.Split(" - ");
 
@@ -357,12 +358,10 @@ namespace racewrangler.Data
 
                 // Parse out how many entries there are in this class
                 var items = parts.Last().Split(": ");
-
-                //entryCount = int.Parse(parts.Last().Split(": ")[1].Trim());
             }
             else if (parts.Length == 2) // Sometimes class headers don't have a full name in them
             {
-                abbrv = parts[0];
+                abbrv = parts[0].Replace("'", string.Empty);
 
                 // Identify the class (add it to the db if necessary!)
                 cls = (from c in context.Classes
@@ -389,16 +388,20 @@ namespace racewrangler.Data
             {
                 // Check to see if the class already exists
                 var cs = (from c in context.Classes
-                          where c.Abbreviation == cls.InnerText
+                          where c.Abbreviation == cls.InnerText.Replace("'", string.Empty)
                           select c).FirstOrDefault();
 
                 if(cs == default(Classification))
                 {
-                    context.Classes.Add(new Classification()
+                    cs = new Classification()
                     {
                         Abbreviation = cls.InnerText.Replace("'", string.Empty)
-                    });
+                    };
+
                 }
+
+                context.Classes.Update(cs);
+
             }
 
 
