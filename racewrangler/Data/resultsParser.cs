@@ -16,12 +16,22 @@ namespace racewrangler.Data
 
             foreach (var d in di.EnumerateDirectories())
             {
-                var season = new Models.Season()
-                {
-                    Year = int.Parse(d.Name),
-                    Competitions = new List<Competition>()
-                };
+                var season = (from s in context.Seasons
+                              where s.Year == int.Parse(d.Name)
+                              select s).FirstOrDefault();
 
+                // Don't continuously add seasons, use an existing one if possible!
+                if (season == default(Season))
+                {
+                    season = new Models.Season()
+                    {
+                        Year = int.Parse(d.Name),
+                        Competitions = new List<Competition>()
+                    };
+                }
+
+                // Now check each file in the directory to see if it has been loaded
+                // If not, load it into the database!
                 foreach (var f in d.EnumerateFiles())
                 {
                     var fileLoaded = (from c in context.Competitions
@@ -43,7 +53,7 @@ namespace racewrangler.Data
                     }
                 }
 
-                context.Seasons.Add(season);
+                context.Seasons.Update(season);
             }
 
             context.SaveChanges();
@@ -156,36 +166,42 @@ namespace racewrangler.Data
                         col++;
                     }
 
-                    if(re != null)
-                    {
-                        LinkDriver(context, drvr);
-
-                        re.Driver = drvr;
-
-                        comp.Entrants.Add(re);
-                    }
+                    
                 }
-                else //if (entryCount > 0)    // Parse runs
+                else    // Parse runs
                 {
                     var detNodes = nd.SelectNodes(".//td");
 
                     // Check to see if there is a car number here. This is the first row and the start of a new entry
                     if(detNodes[2].InnerText != string.Empty)
                     {
+                        // If we have a car number, then this is a new driver, save the old driver before proceeding!
+                        if (re != null)
+                        {
+                            LinkDriver(context, drvr);
+
+                            re.Driver = drvr;
+
+                            comp.Entrants.Add(re);
+                        }
+
+                        drvr = new Driver();
+
                         re = new RaceEntry()
                         {
                             Class = cls,
                             Competition = comp,
-                            Driver = new Driver()
+                            Driver = new Driver(),
+                            Number = detNodes[2].InnerText
                         };
 
                         var names = detNodes[3].InnerText.Split(", ");
 
-                        re.Driver.LastName = names[0];
+                        drvr.LastName = names[0];
                         // Be defensive, what if someone has only one name?
                         if(names.Length > 1)
                         {
-                            re.Driver.FirstName = names[1];
+                            drvr.FirstName = names[1];
                         }
 
                         // Parse the car
@@ -215,7 +231,7 @@ namespace racewrangler.Data
                             // If there is a member number, parse it out!
                             if (detNodes[3].InnerText != string.Empty)
                             {
-                                re.Driver.MemberNumber = detNodes[3].InnerText;
+                                drvr.MemberNumber = detNodes[3].InnerText;
                             }
                             // Get the sponsor
                             re.Sponsor = detNodes[4].InnerText;
@@ -320,7 +336,7 @@ namespace racewrangler.Data
 
             if (parts.Length == 3)
             {
-                abbrv = parts[0];
+                abbrv = parts[0].Replace("'", string.Empty);
 
                 // Identify the class (add it to the db if necessary!)
                 cls = (from c in context.Classes
@@ -371,10 +387,18 @@ namespace racewrangler.Data
         { 
             foreach(var cls in classlist)
             {
-                context.Classes.Add(new Classification()
+                // Check to see if the class already exists
+                var cs = (from c in context.Classes
+                          where c.Abbreviation == cls.InnerText
+                          select c).FirstOrDefault();
+
+                if(cs == default(Classification))
                 {
-                    Abbreviation = cls.InnerText
-                });
+                    context.Classes.Add(new Classification()
+                    {
+                        Abbreviation = cls.InnerText.Replace("'", string.Empty)
+                    });
+                }
             }
 
 

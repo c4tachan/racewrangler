@@ -21,14 +21,16 @@ namespace racewrangler.Pages.Competitions
 
         public Competition Competition { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? year, int? eventNum)
         {
-            if (id == null)
+            if ((year == null) || (eventNum == null))
             {
                 return NotFound();
             }
 
-            Competition = await _context.Competitions.FirstOrDefaultAsync(m => m.ID == id);
+            Competition = await _context.Competitions
+                .Include(c => c.Entrants)
+                .FirstOrDefaultAsync(m => (m.Season.Year == year) && (m.EventNum == eventNum) );
 
             if (Competition == null)
             {

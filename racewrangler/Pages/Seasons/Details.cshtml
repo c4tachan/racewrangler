@@ -27,7 +27,13 @@
             @foreach (var item in Model.Season.Competitions)
             {
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.EventNum)</td>
+                    <td>
+                        <a asp-page="/Competitions/Details" 
+                           asp-route-year="@Model.Season.Year"
+                           asp-route-eventNum="@item.EventNum">
+                            @Html.DisplayFor(modelItem => item.EventNum)
+                        </a>
+                    </td>
                     <td>@Html.DisplayFor(modelItem => item.Date)</td>
                     <td>@Html.DisplayFor(modelItem => item.Name)</td>
                 </tr>

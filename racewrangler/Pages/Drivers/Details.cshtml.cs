@@ -20,6 +20,10 @@ namespace racewrangler.Pages.Drivers
         }
 
         public Driver Driver { get; set; }
+        public List<Season> Seasons { get; set; }
+        public List<RaceEntry> RaceEntries { get; set; }
+        public List<Competition> Competitions { get; set; }
+        public List<Classification> Classes { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,7 +32,29 @@ namespace racewrangler.Pages.Drivers
                 return NotFound();
             }
 
-            Driver = await _context.Drivers.FirstOrDefaultAsync(m => m.ID == id);
+            Driver = await _context.Drivers
+                .Include(d => d.RaceEntries)
+                    .ThenInclude(r => r.Runs)
+                .Include(d => d.RaceEntries)
+                    .ThenInclude(r => r.Car)
+                .Include(d => d.RaceEntries)
+                    .ThenInclude(r => r.Class)
+                .Include(d => d.RaceEntries)
+                    .ThenInclude(r => r.Competition)
+                .Include(d => d.RaceEntries)
+                    .ThenInclude(r => r.Driver)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            RaceEntries = Driver.RaceEntries.ToList();
+
+            Classes = (from r in RaceEntries
+                       select r.Class).ToList();
+
+            Competitions = (from r in RaceEntries
+                            select r.Competition).ToList();
+            
+            Seasons = (from c in Competitions
+                       select c.Season).ToList();
 
             if (Driver == null)
             {
